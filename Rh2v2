@@ -1,0 +1,12 @@
+--[[
+ .____                  ________ ___.    _____                           __                
+ |    |    __ _______   \_____  \\_ |___/ ____\_ __  ______ ____ _____ _/  |_  ___________ 
+ |    |   |  |  \__  \   /   |   \| __ \   __\  |  \/  ___// ___\\__  \\   __\/  _ \_  __ \
+ |    |___|  |  // __ \_/    |    \ \_\ \  | |  |  /\___ \\  \___ / __ \|  | (  <_> )  | \/
+ |_______ \____/(____  /\_______  /___  /__| |____//____  >\___  >____  /__|  \____/|__|   
+         \/          \/         \/    \/                \/     \/     \/                   
+          \_Welcome to LuaObfuscator.com   (Alpha 0.10.9) ~  Much Love, Ferib 
+
+]]--
+
+if  not hookmetamethod then warn("Executor does not support hookmetamethod.");return;end local v0=game:GetService("ReplicatedStorage");local v1=v0:WaitForChild("PlayerEvents"):WaitForChild("Shooting");local v2={["Standing Shot"]=0.59,Layup=0.47,["Standing Layup"]=0.5,["Close Post Fade"]=0.6,["Post Fade"]=0.6,["Close Post Hook"]=0.48,["Side Post Hook"]=0.3,["Moving Shot"]=0.7,["Close Layup"]=0.45,["Reverse Layup"]=0.66};local v3=0.53;local v4=1;local v5=false;local v6=false;local v7=0;local function v8(v10) return (v10==1) or (v10==2) or (v10==3) ;end local v9;v9=hookmetamethod(game,"__namecall",function(v11,...) local v12={...};local v13=getnamecallmethod();if ((v11~=v1) or (v13~="FireServer")) then return v9(v11,...);end local v14=v12[1];local v15=v12[2];local v16=v12[3];local v17=v12[4];if ((v14==true) and ((v15=="Moving Dunk") or (v15=="Standing Dunk")) and v8(v16)) then local v18=tick();if (v5 or ((v18-v7)<v4)) then return v9(v11,...);end v5=true;v7=v18;task.delay(v4,function() v5=false;end);task.delay(v3,function() pcall(function() v1:FireServer(false,v15,v16);end);end);return v9(v11,...);end if ((v14==true) and (v15=="Shooting")) then local v19=v16;local v20=v17;if ( not v2[v19] or v6) then return v9(v11,...);end v6=true;local v21=v2[v19];task.delay(v21,function() local v22={false,"Shooting",v19};if v20 then table.insert(v22,v20);end pcall(function() v1:FireServer(unpack(v22));end);v6=false;end);return v9(v11,...);end return v9(v11,...);end);
